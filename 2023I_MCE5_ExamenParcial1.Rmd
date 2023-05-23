@@ -1,6 +1,6 @@
 ---
 title: "Examen parcial 1 - Métodos Cuantitativos en Ecología"
-author: 'Maren Pazmino'
+author: 'Maren Pazmiño'
 date: "23 de mayo de 2023"
 output: 
   html_document:
@@ -51,15 +51,18 @@ En el estudio realizado por <a href="https://doi.org/10.1111/jvs.13185">Sanches 
 ## Para su potencial investigación ¿Cuál sería su hipótesis ? (Explique)
 
 **Respuesta:**
-Hola dice
+Suponiendo que voy a replicar el estudio en la ciudad de Tena seria: La facilitacion entre plantas afecta la diversidad y el rendimiento de las especies en una comunidad vegetal
 
 ## Muestra
 
 Replique el diseño realizado en el artículo en localidades del Ecuador y genere el archivo **rarespecies.csv**. 
 
 ```{r crd_anfibios}
+data(gyp_recruitment)
+str(gyp_recruitment)
 sitios = c("Sitio1", "Chuquitos", "Chompi")
-
+nombre_tabla <- "nombre_de_tabla"
+nombres_columnas <- c("nombre_columna1", "nombre_columna2", "nombre_columna3")
 ```
 Explique el resultado muestra: 
 
@@ -71,6 +74,7 @@ Explique el resultado muestra:
 ¿Cuáles son sus variables (dependiente(s) e independiente(s))? Explique cada una de las variables
 
 **Respuesta:**
+Las variables dependientes son la diversidad, el rendimiento de las especies en la comunidad vegetal y afinidad de las especies al sustrato. Las variables independientes incluyen la presencia o ausencia de facilitación entre plantas. 
 
 
 ## Gráfica e hipótesis
@@ -85,17 +89,67 @@ En una hoja de papel dibuje un gráfico hipotetico basado en la figura 4 del art
 # **[6 PUNTOS] Regresiones
 
 En esta parte debe aplicar las regresiones lineal, linearizada y generalizada sobre la presencia de ácaros en musgos. Una de las especies analizadas es *Galumma sp.* cuya abundancia presencia y proporción es posiblemente afectada por las siguiente cinco variables ambientales como densidad de sustrato, el tipo de sustrato, el contenido de agua, si se tiene o no arbustos en la cercanía y la topografía del suelo. Utilice la data ```mites.csv``` y responda los siguientes items. 
+```{r}
+data(mites)
+str(Orange)
+summary(mites)
+```
 
-- ¿Cuál es el efecto de las variables ambientales en la i) abundancia de ii) abundancia y iii) proporción de la especie *Galumma sp.*?
+
+- ¿Cuál es el efecto de las variables ambientales en la i) abundancia de ii) ocurrencia y iii) proporción de la especie *Galumma sp.*?
+```{r}
+library(ggplot2)
+ggplot(data = mites, aes(x = SubstrateDensity, y = AbundanceGalumma, 
+                          col = AbundanceGalumma)) +
+  geom_point()
+```
+
+```{r}
+library(ggplot2)
+ggplot(data = mites, aes(x = SubstrateDensity, y = Ocurrence, 
+                          col = AbundanceGalumma)) +
+  geom_point()
+```
+
+```{r}
+library(ggplot2)
+ggplot(data = mites, aes(x = SubstrateDensity, y = Proportion, 
+                          col = AbundanceGalumma)) +
+  geom_point()
+```
+
 
 Para responder esta pregunta debe generar las hipótesis y probar las hipótesis (código y explicación), asimismo visualizar con etiquetas adecuadas. Considere realizar lo siguiente:
 
+La hipótesis nula (H0) es aquella donde se espera que no exista efecto. Es la más fácil de contradecir. 
+
+$H_{01}$: La edad del árbol no incide en el tamaño del diámetro. 
+$H_{02}$: Los árboles tienen el mismo diámetro a medida que pasa el tiempo.
+
+```{r verificarH01}
+h01 <- lm(AbundanceGalumma ~ Ocurrence, data = mites)
+summary(h01)
+```
+
+
 - Realizar un análisis exploratorio.
 
+
 - Realizar regresiones lineales de cada variable de respuesta y variables efectoras, univariable o multivariable. Verifique los supuestos de la regresión. 
+```{r}
+ggplot(data = mites, aes(x = AbundanceGalumma, y = Ocurrence)) +
+  geom_point() + geom_smooth(method = "lm") + theme_classic() + 
+  labs(x = "Abundancia de Galumma", y = "Ocurrencia")
+```
+```{r}
+
+glm1 <- glm(Ocurrence~AbundanceGalumma, family = binomial (link = "logit"), data = mites)
+summary(glm1)
+```
+
 
 - Realizar regresiones linearizadas de cada variable de respuesta y variables efectoras, univariable o multivariable. 
 
 - Realizar regresiones lineales generalizadas de cada variable de respuesta y variables efectoras, univariable o multivariable. 
 
-- Comparar de la bondad de las regresiones. 
+- Comparar de la bondad de las regresiones.
