@@ -91,10 +91,9 @@ En una hoja de papel dibuje un gráfico hipotetico basado en la figura 4 del art
 En esta parte debe aplicar las regresiones lineal, linearizada y generalizada sobre la presencia de ácaros en musgos. Una de las especies analizadas es *Galumma sp.* cuya abundancia presencia y proporción es posiblemente afectada por las siguiente cinco variables ambientales como densidad de sustrato, el tipo de sustrato, el contenido de agua, si se tiene o no arbustos en la cercanía y la topografía del suelo. Utilice la data ```mites.csv``` y responda los siguientes items. 
 ```{r}
 data(mites)
-str(Orange)
+str(mites)
 summary(mites)
 ```
-
 
 - ¿Cuál es el efecto de las variables ambientales en la i) abundancia de ii) ocurrencia y iii) proporción de la especie *Galumma sp.*?
 ```{r}
@@ -103,6 +102,7 @@ ggplot(data = mites, aes(x = SubstrateDensity, y = AbundanceGalumma,
                           col = AbundanceGalumma)) +
   geom_point()
 ```
+La figura muestra que a medida que aumenta la densidad del sustrato, la abundancia no aumenta al apar 
 
 ```{r}
 library(ggplot2)
@@ -121,16 +121,14 @@ ggplot(data = mites, aes(x = SubstrateDensity, y = Proportion,
 
 Para responder esta pregunta debe generar las hipótesis y probar las hipótesis (código y explicación), asimismo visualizar con etiquetas adecuadas. Considere realizar lo siguiente:
 
-La hipótesis nula (H0) es aquella donde se espera que no exista efecto. Es la más fácil de contradecir. 
 
-$H_{01}$: La edad del árbol no incide en el tamaño del diámetro. 
-$H_{02}$: Los árboles tienen el mismo diámetro a medida que pasa el tiempo.
+$H_{01}$: La abuandancia de Galumma tiene relacion con la ocurrencia 
 
 ```{r verificarH01}
 h01 <- lm(AbundanceGalumma ~ Ocurrence, data = mites)
 summary(h01)
 ```
-
+Con un nivel de confianza de casi el 50%  la abundancia tiene relacion con la ocurrencia 
 
 - Realizar un análisis exploratorio.
 
