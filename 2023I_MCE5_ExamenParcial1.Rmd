@@ -58,11 +58,9 @@ Suponiendo que voy a replicar el estudio en la ciudad de Tena seria: La facilita
 Replique el diseño realizado en el artículo en localidades del Ecuador y genere el archivo **rarespecies.csv**. 
 
 ```{r crd_anfibios}
-data(gyp_recruitment)
-str(gyp_recruitment)
-sitios = c("Sitio1", "Chuquitos", "Chompi")
-nombre_tabla <- "nombre_de_tabla"
-nombres_columnas <- c("nombre_columna1", "nombre_columna2", "nombre_columna3")
+
+sitios = c("Atacapi", "Muyuna", "Alto Tena")
+
 ```
 Explique el resultado muestra: 
 
@@ -110,14 +108,14 @@ ggplot(data = mites, aes(x = SubstrateDensity, y = Ocurrence,
                           col = AbundanceGalumma)) +
   geom_point()
 ```
-
+La ocurrencia y la densidad del suustrato no se encuentran relacionados 
 ```{r}
 library(ggplot2)
 ggplot(data = mites, aes(x = SubstrateDensity, y = Proportion, 
                           col = AbundanceGalumma)) +
   geom_point()
 ```
-
+Cuando la proporcion es baja se mantiene en su mayoria constante la densidad del sustrato
 
 Para responder esta pregunta debe generar las hipótesis y probar las hipótesis (código y explicación), asimismo visualizar con etiquetas adecuadas. Considere realizar lo siguiente:
 
